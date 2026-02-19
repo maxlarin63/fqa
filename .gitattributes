@@ -1,0 +1,2 @@
+# Repo stores LF; Git converts to CRLF in working copy on Windows (use CRLF locally, LF in repo)
+* text=auto eol=lf
