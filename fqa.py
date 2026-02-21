@@ -316,6 +316,7 @@ def pack(project_dir):
 # ============================================================
 
 def main():
+    print(f"FQA Tool v{VERSION}")
     parser = argparse.ArgumentParser(description=f"FQA Tool v{VERSION}")
     sub = parser.add_subparsers(dest="command")
 
