@@ -11,10 +11,12 @@ Requires **Python 3.7+** (no extra dependencies).
 
 Run from the folder that contains `fqa.py`. In Windows CMD, paste and run one line at a time (CMD often drops newlines when pasting).
 
-Unpack an .fqa (prompts if project folder already exists):
+Unpack an .fqa (prompts if project folder already exists). By default the project folder is created in the current directory; use `-o` / `--output` to specify another directory:
 
 ```
 python fqa.py unpack MyQuickApp.fqa
+python fqa.py unpack MyQuickApp.fqa -o out
+python fqa.py unpack MyQuickApp.fqa --output C:\Projects\fqa
 ```
 
 Pack a project (prompts if .fqa already exists):

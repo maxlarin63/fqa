@@ -116,7 +116,7 @@ def _prompt_yes_no(prompt: str) -> bool:
             return False
 
 
-def unpack(fqa_path):
+def unpack(fqa_path, output_dir=None):
     fqa_path = Path(fqa_path).resolve()
     if fqa_path.is_dir():
         print(f"'{fqa_path}' is a directory. Pass the path to an .fqa file (e.g. {fqa_path.name}.fqa).")
@@ -128,7 +128,11 @@ def unpack(fqa_path):
     raw_text = fqa_path.read_text(encoding="utf-8")
     data = json.loads(raw_text)
 
-    project_dir = Path(data.get("name", fqa_path.stem))
+    project_name = data.get("name", fqa_path.stem)
+    if output_dir is not None:
+        project_dir = Path(output_dir).resolve() / project_name
+    else:
+        project_dir = Path(project_name)
 
     if project_dir.exists():
         if not _prompt_yes_no(f"Folder '{project_dir}' already exists. Overwrite it?"):
@@ -317,6 +321,8 @@ def main():
 
     unpack_parser = sub.add_parser("unpack")
     unpack_parser.add_argument("file")
+    unpack_parser.add_argument("-o", "--output", dest="output_dir", metavar="DIR",
+                               help="Directory to unpack into (default: current directory)")
 
     pack_parser = sub.add_parser("pack")
     pack_parser.add_argument("dir")
@@ -324,7 +330,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "unpack":
-        unpack(args.file)
+        unpack(args.file, output_dir=getattr(args, "output_dir", None))
 
     elif args.command == "pack":
         pack(args.dir)
