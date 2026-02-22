@@ -7,14 +7,17 @@ CLI to unpack and pack **Fibaro QuickApp** (`.fqa`) files for editing in a norma
 
 Requires **Python 3.7+** (no extra dependencies).
 
+You can run the script with Python or use a Windows executable (see [Building Windows executable](#building-windows-executable)).
+
 ## Usage
 
-Run from the folder that contains `fqa.py`. In Windows CMD, paste and run one line at a time (CMD often drops newlines when pasting).
+Run from the folder that contains `fqa.py` (or put `fqa.exe` on your PATH). In Windows CMD, paste and run one line at a time (CMD often drops newlines when pasting).
 
 Unpack an .fqa (prompts if project folder already exists). By default the project folder is created in the current directory; use `-o` / `--output` to specify another directory:
 
 ```
 python fqa.py unpack MyQuickApp.fqa
+fqa unpack MyQuickApp.fqa
 python fqa.py unpack MyQuickApp.fqa -o out
 python fqa.py unpack MyQuickApp.fqa --output C:\Projects\fqa
 ```
@@ -23,7 +26,21 @@ Pack a project (prompts if .fqa already exists):
 
 ```
 python fqa.py pack MyQuickApp
+fqa pack MyQuickApp
 ```
+
+## Building Windows executable
+
+One-file executable, no Python required on the target machine:
+
+```bash
+pip install -r requirements-build.txt
+build.bat
+```
+
+Output: `dist\fqa.exe`. Use it like `fqa unpack file.fqa` and `fqa pack project_dir`.
+
+For a release (build exe + checksums): `python release.py`. This produces `dist\fqa.exe` and `dist\SHA256SUMS.txt`. To verify: in `dist\` run `certutil -hashfile fqa.exe SHA256` (Windows) or `sha256sum -c SHA256SUMS.txt` (Linux/WSL) and compare.
 
 Unpacked layout:
 
