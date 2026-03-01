@@ -18,6 +18,9 @@ Thumbs.db
 # Editor / IDE
 .idea/
 
+# Local fqa tool path (per developer, do not commit)
+.fqa-tool-path
+
 # Local backups (remove these lines if you want to track copies)
 * - Copy.py
 *_cp.py
