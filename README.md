@@ -2,7 +2,7 @@
 
 CLI to unpack and pack **Fibaro QuickApp** (`.fqa`) files for editing in a normal project layout, with HC3-compatible repack.
 
-- **Unpack**: turns an `.fqa` into a folder with human-readable JSON, Lua files, VS Code workspace, and `.gitignore`.
+- **Unpack**: turns an `.fqa` into a folder with human-readable JSON, Lua files, VS Code workspace, `.gitignore`, and optional pack scripts (`.fqa-tool-path`, `fqa-pack.py`, wrappers).
 - **Pack**: writes an `.fqa` using the original format (indent/newline) so the HC3 parser accepts it.
 
 Requires **Python 3.7+** (no extra dependencies).
@@ -13,21 +13,57 @@ You can run the script with Python or use a Windows executable (see [Building Wi
 
 Run from the folder that contains `fqa.py` (or put `fqa.exe` on your PATH). In Windows CMD, paste and run one line at a time (CMD often drops newlines when pasting).
 
-Unpack an .fqa (prompts if project folder already exists). By default the project folder is created in the current directory; use `-o` / `--output` to specify another directory:
+### Unpack
+
+Unpack an .fqa. By default the project folder is created in the current directory; use `-o` / `--output` to specify another directory. If the project folder already exists, you are prompted to overwrite unless you use `-y` / `--yes` or `--update`.
+
+- **`-o` / `--output` DIR** — Unpack into this directory (default: current directory).
+- **`-y` / `--yes`** — Overwrite existing folder without prompting.
+- **`--update`** — Update existing folder in place (no delete). Use this to refresh from a new .fqa without removing the folder (avoids "folder in use" on Windows).
+- **`-silent`** — No progress output.
+
+Unpack prints progress (files added/updated) unless `-silent` is used.
 
 ```
 python fqa.py unpack MyQuickApp.fqa
 fqa unpack MyQuickApp.fqa
 python fqa.py unpack MyQuickApp.fqa -o out
-python fqa.py unpack MyQuickApp.fqa --output C:\Projects\fqa
+python fqa.py unpack MyQuickApp.fqa -o test --update
+python fqa.py unpack MyQuickApp.fqa -y -silent
 ```
 
-Pack a project (prompts if .fqa already exists):
+### Pack
+
+Pack a project into an `.fqa`. Output is written to the current directory as `{name}.fqa` unless `-o` / `--output` is given.
+
+- **`-o` / `--output` PATH** — Output path: file (e.g. `dist/App.fqa`) or directory (writes `{name}.fqa` there).
+- **`-y` / `--yes`** — Overwrite existing .fqa without prompting.
+- **`-silent`** — No progress output.
 
 ```
 python fqa.py pack MyQuickApp
 fqa pack MyQuickApp
+python fqa.py pack . -o dist -y
 ```
+
+### Pack from an unpacked project (fqa-pack)
+
+After unpacking, the project contains a small script and wrappers so you can pack without calling the fqa tool by path. They use a local config file (not committed):
+
+- **`.fqa-tool-path`** — One line: command to run fqa (e.g. `python "C:\path\to\fqa.py"`). Created by `unpack`; add to `.gitignore` (done automatically).
+- **`fqa-pack.py`** — Cross-platform script: reads `.fqa-tool-path` and runs `fqa pack .` with your args.
+- **`fqa-pack.bat`** (Windows), **`fqa-pack`** (Mac/Linux) — Wrappers that run `fqa-pack.py`.
+
+From the **project root** (the unpacked folder):
+
+```
+python fqa-pack.py
+python fqa-pack.py -y -o dist
+fqa-pack.bat          # Windows
+./fqa-pack            # Mac/Linux
+```
+
+If `.fqa-tool-path` is missing (e.g. you cloned the repo and didn’t run `unpack`), create it with one line: the command you use to run fqa (e.g. `python "D:\path\to\fqa.py"`).
 
 ## Building Windows executable
 
@@ -50,6 +86,8 @@ Unpacked layout:
 - `.fqa_meta.json` — schema and file mapping (used by pack)
 - `.vscode/` — settings + recommended extensions (Lua, Lua debug, Git Graph)
 - `<name>.code-workspace` — open this in VS Code
+- `.fqa-tool-path` — local path to fqa (created by unpack; in `.gitignore`)
+- `fqa-pack.py`, `fqa-pack.bat`, `fqa-pack` — pack script and wrappers (forward e.g. `-y`, `-silent`, `-o`)
 
 ## HC3 compatibility
 
