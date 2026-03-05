@@ -1,5 +1,7 @@
 # FQA Tool
 
+Current version: **v1.0.0**
+
 CLI to unpack and pack **Fibaro QuickApp** (`.fqa`) files for editing in a normal project layout, with HC3-compatible repack.
 
 - **Unpack**: turns an `.fqa` into a folder with human-readable JSON, Lua files, VS Code workspace, `.gitignore`, and optional pack scripts (`.fqa-tool-path`, `fqa-pack.py`, wrappers).
@@ -12,6 +14,13 @@ You can run the script with Python or use a Windows executable (see [Building Wi
 ## Usage
 
 Run from the folder that contains `fqa.py` (or put `fqa.exe` on your PATH). In Windows CMD, paste and run one line at a time (CMD often drops newlines when pasting).
+
+To see the installed `fqa` version:
+
+```bash
+python fqa.py --version
+fqa --version
+```
 
 ### Unpack
 

@@ -473,7 +473,17 @@ def pack(project_dir, output_path=None, yes=False, silent=False):
 # ============================================================
 
 def main():
-    parser = argparse.ArgumentParser(description=f"FQA Tool v{VERSION}")
+    parser = argparse.ArgumentParser(
+        description=f"FQA Tool v{VERSION}",
+        epilog="Use '%(prog)s unpack -h' or '%(prog)s pack -h' to see all options for each command.",
+    )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=f"%(prog)s {VERSION}",
+        help="Show fqa version and exit",
+    )
     sub = parser.add_subparsers(dest="command")
 
     unpack_parser = sub.add_parser("unpack")
