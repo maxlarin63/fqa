@@ -23,6 +23,10 @@ Thumbs.db
 # Local fqa tool path (per developer, do not commit)
 .fqa-tool-path
 
+# Secrets (do not commit)
+.env
+.pypirc
+
 # Local backups (remove these lines if you want to track copies)
 * - Copy.py
 *_cp.py
