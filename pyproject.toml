@@ -4,7 +4,7 @@
 
  [project]
  name = "fqa"
- version = "1.0.1"
+ version = "1.0.2"
  description = "CLI to unpack and pack Fibaro QuickApp (.fqa) files for editing in a normal project layout, with HC3-compatible repack."
  readme = "README.md"
  requires-python = ">=3.7"

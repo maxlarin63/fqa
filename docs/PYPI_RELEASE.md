@@ -10,7 +10,7 @@ This document describes how to build the **PyPI-compatible** package (sdist + wh
   ```bash
   pip install build twine
   ```
-- **Version** in `fqa.py` and `pyproject.toml` bumped for the release (e.g. `1.0.1`).
+- **Version** in `fqa.py` and `pyproject.toml` bumped for the release (e.g. `1.0.2`).
 - **PyPI API token** stored in `.pypirc` in the project root (or in `~/.pypirc`).  
   `.pypirc` is in `.gitignore`; create it with:
   ```ini
@@ -43,8 +43,8 @@ From the **project root** (`d:\HomeAutomation\fqa` or repo root):
 3. **Tag and release** (optional but recommended):
    - Commit any version bumps, then:
      ```bash
-     git tag v1.0.1
-     git push origin v1.0.1
+     git tag v1.0.2
+     git push origin v1.0.2
      ```
    - Create a GitHub Release for that tag and attach `dist/fqa.exe`, `dist/fqa-<version>-windows.zip`, and `dist/SHA256SUMS.txt` if you built them with `release.py`.
 

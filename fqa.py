@@ -6,7 +6,7 @@ import sys
 import time
 from pathlib import Path
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 # Default: show progress. Set to True to suppress (e.g. when -silent is used).
 SILENT = False

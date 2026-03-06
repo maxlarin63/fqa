@@ -1,6 +1,6 @@
 # FQA Tool
 
-Current version: **v1.0.1**
+Current version: **v1.0.2**
 
 CLI to unpack and pack **Fibaro QuickApp** (`.fqa`) files for editing in a normal project layout, with HC3-compatible repack.
 
