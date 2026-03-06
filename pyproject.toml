@@ -1,0 +1,32 @@
+ [build-system]
+ requires = ["setuptools>=61", "wheel"]
+ build-backend = "setuptools.build_meta"
+
+ [project]
+ name = "fqa"
+ version = "1.0.1"
+ description = "CLI to unpack and pack Fibaro QuickApp (.fqa) files for editing in a normal project layout, with HC3-compatible repack."
+ readme = "README.md"
+ requires-python = ">=3.7"
+ license = { text = "MIT" }
+ authors = [
+   { name = "Max Larin" }
+ ]
+ classifiers = [
+   "Programming Language :: Python :: 3",
+   "Programming Language :: Python :: 3 :: Only",
+   "License :: OSI Approved :: MIT License",
+   "Operating System :: OS Independent",
+]
+
+ dependencies = []
+
+ [project.urls]
+ Homepage = "https://github.com/maxlarin63/fqa"
+
+ [project.scripts]
+ fqa = "fqa:main"
+
+ [tool.setuptools]
+ py-modules = ["fqa"]
+
